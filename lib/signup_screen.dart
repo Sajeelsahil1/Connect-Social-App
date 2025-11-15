@@ -25,17 +25,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _isLoading = true;
     });
 
-    bool signUpSuccess = false; // <-- 1. Add success flag
+    bool signUpSuccess = false;
 
     try {
-      // 1. Create user
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
 
-      // 2. Create user document
       if (userCredential.user != null) {
         await FirebaseFirestore.instance
             .collection('users')
@@ -49,33 +47,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
         });
       }
 
-      signUpSuccess = true; // <-- 3. Mark as successful
+      signUpSuccess = true;
 
-      // --- 4. THE FIX: Log user out and redirect ---
       await FirebaseAuth.instance.signOut();
 
       if (mounted) {
-        // Go back to login screen
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
-        ));
-        // Show success message
+        Navigator.pop(context);
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text('Successfully signed up! Please log in.'),
-              backgroundColor: Colors.green),
+            content: Text('Successfully signed up! Please log in.'),
+            backgroundColor: Colors.green,
+          ),
         );
       }
     } on FirebaseAuthException catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(e.message ?? 'Sign up failed'),
-              backgroundColor: Colors.red),
+            content: Text(e.message ?? 'Sign up failed'),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     } finally {
-      // --- 5. THE FIX: Only call setState if sign up FAILED ---
       if (mounted && !signUpSuccess) {
         setState(() {
           _isLoading = false;
@@ -149,9 +144,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const Text('Already have an account?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
                       },
                       child: const Text('Login'),
                     ),

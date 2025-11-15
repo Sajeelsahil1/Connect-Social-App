@@ -23,27 +23,24 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = true;
     });
 
-    bool loginSuccess = false; // <-- 1. Add success flag
+    bool loginSuccess = false;
 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      loginSuccess = true; // <-- 2. Mark as successful
-      // The AuthWrapper in main.dart will now handle navigation
+      loginSuccess = true;
     } on FirebaseAuthException catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(e.message ?? 'Login failed'),
-              backgroundColor: Colors.red),
+            content: Text(e.message ?? 'Login failed'),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     } finally {
-      // --- 3. THE FIX ---
-      // Only call setState to stop loading if the login FAILED
-      // If it succeeded, AuthWrapper will destroy this widget.
       if (mounted && !loginSuccess) {
         setState(() {
           _isLoading = false;
@@ -96,9 +93,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ForgotPasswordScreen(),
-                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreen(),
+                        ),
+                      );
                     },
                     child: const Text('Forgot Password?'),
                   ),
@@ -121,9 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text("Don't have an account?"),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const SignUpScreen(),
-                        ));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpScreen(),
+                          ),
+                        );
                       },
                       child: const Text("Sign Up"),
                     ),
