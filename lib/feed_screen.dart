@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:social_connect/create_post_screen.dart';
-import 'package:social_connect/user_profile_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// CHANGED: Import the ProfileScreen we just updated (with the Follow logic)
+import 'package:social_connect/profile_screen.dart';
 import 'package:social_connect/post_card.dart';
 import 'package:social_connect/search_screen.dart';
 
@@ -66,6 +66,7 @@ class FeedScreen extends StatelessWidget {
                   post.data() as Map<String, dynamic>;
 
               String postText = postData['postText'] ?? '';
+              // This UID is the person who created the post
               String uid = postData['uid'] ?? '';
               Timestamp timestamp = postData['timestamp'] ?? Timestamp.now();
               List likes = postData['likes'] ?? [];
@@ -116,11 +117,10 @@ class FeedScreen extends StatelessWidget {
                     fileUrl: fileUrl,
                     fileType: fileType,
                     onProfileTap: () {
-                      if (userSnapshot.hasData && userSnapshot.data!.exists) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => UserProfileScreen(userId: uid),
-                        ));
-                      }
+                      // FIX: Navigate to ProfileScreen with the post creator's UID
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ProfileScreen(uid: uid),
+                      ));
                     },
                   );
                 },
