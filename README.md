@@ -1,6 +1,6 @@
 # Kinekt (Social Connect App) 📱
 
-Kinekt is a full-stack, cross-platform social media application built in Flutter. It was developed as a mobile app intern task, demonstrating a wide range of features from real-time chat and notifications to cloud media uploads.
+Kinekt is a full-stack, cross-platform social media application built in Flutter. It was developed as a comprehensive mobile app internship task for **DevelopersHub**, demonstrating a wide range of features from real-time social interactions to cloud media uploads.
 
 
 
@@ -10,31 +10,36 @@ Kinekt is a full-stack, cross-platform social media application built in Flutter
 
 * **Full Authentication:** User sign-up, login, and password reset using Firebase Authentication.
 * **Real-Time Feed:** A main feed that shows posts from all users, updated in real-time.
-* **Create Posts:** Users can create posts with text and upload **images & videos** directly to Cloudinary.
-* **Edit & Delete Posts:** Users have full control to edit or delete their own posts.
+* **User Follow System (New):**
+    * **Follow/Unfollow** users to curate your network.
+    * View real-time **Followers & Following counts** on user profiles.
 * **Real-Time Chat:** A complete, one-on-one messaging system.
-    * Start chats from any user's profile.
-    * View all active conversations in a "Messages" list.
-    * Send text, images, and videos in real-time.
-* **In-App Notifications:** An "Activity" screen showing notifications for new likes and comments, with a badge for unread items.
-* **Like & Comment System:** Like/unlike posts and view all comments on a separate screen.
+    * Start chats directly from any user's profile.
+    * Send **text, images, and videos** seamlessly.
+    * View all active conversations in a specialized "Messages" tab.
+* **Create Posts:** Users can create rich posts with text and upload **images & videos** directly to Cloudinary.
+* **Full CRUD Control:** Users have full control to edit or delete their own posts.
+* **Interactive Engagement:**
+    * **Like/Unlike** posts instantly.
+    * **Comment** system to discuss posts.
+* **In-App Notifications:** An "Activity" screen showing alerts for new likes and comments, complete with unread badges.
 * **User Profiles:**
-    * View your own profile and other users' profiles.
-    * Upload/edit your profile picture, name, and bio.
-* **User Search:** A dedicated search screen to find other users by name.
-* **Settings Screen:**
-    * Toggle between **Light Mode & Dark Mode**.
+    * Customizable profiles with profile pictures, names, and bios.
     * Toggle between **List View & Grid View** for profile posts.
+    * Smart profile logic: Shows "Edit Profile" for you, and "Follow/Message" for others.
+* **User Search:** A dedicated search screen to find other users by name.
+* **Settings & Themes:**
+    * Toggle between **Light Mode & Dark Mode**.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Frontend:** Flutter
-* **Backend & Database:** Firebase (Authentication, Firestore)
-* **Media Storage:** Cloudinary
+* **Frontend:** Flutter (Dart)
+* **Backend:** Firebase (Authentication, Firestore, Storage)
+* **Media Storage:** Cloudinary API
 * **State Management:** Provider
-* **Navigation:** Flutter Navigator (Bottom Nav Bar, Stack)
+* **Architecture:** MVC (Model-View-Controller) pattern with Service isolation
 
 ---
 
